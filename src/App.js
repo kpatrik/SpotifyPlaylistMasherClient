@@ -14,6 +14,7 @@ class App extends Component {
   }
 
   componentWillMount() {
+    console.log("env var", process.env.SERVER_HOST);
     axios.get(config.server.host, { headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
@@ -32,7 +33,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Sportify Playlist Masher</h1>
+          <h1 className="App-title">Welcome to Spotify Playlist Masher</h1>
         </header>
         <p className="App-intro">
           The response from the server: {this.state.response}

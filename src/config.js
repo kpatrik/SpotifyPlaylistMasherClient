@@ -1,5 +1,5 @@
 module.exports = {
   "server": {
-    "host": process.env.SERVER_HOST || "http://localhost:3001"
+    "host": process.env.REACT_APP_SERVER_HOST || "http://localhost:3001"
   }
 }

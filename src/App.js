@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.png';
 import './App.css';
 import axios from 'axios';
+import config from './config';
 
 class App extends Component {
 
@@ -13,7 +14,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-    axios.get('http://localhost:3001', { headers: {
+    axios.get(config.server.host, { headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json',
     }})

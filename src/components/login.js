@@ -35,21 +35,18 @@ class Login extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
+        <div className="content">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to Spotify Playlist Masher</h1>
-        </header>
-        <p className="App-intro">
-          The response from the server: {this.state.response}
-        </p>
-        <button onClick={this.login}>Login to spotify</button>
+          <button className="btn" onClick={this.login} type="button"><span>Login with spotify</span></button>
+        </div>
       </div>
     );
   }
 
   login() {
     var client_id = '0fe0e1bcd123469aaf69836f818b40ef'; // Your client id
-    var redirect_uri = 'http://localhost:3000/callback'; // Your redirect uri
+    var redirect_uri = `${config.client.host}/callback`; // Your redirect uri
 
     var state = this.generateRandomString(16);
 

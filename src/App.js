@@ -1,46 +1,32 @@
-import React, { Component } from 'react';
-import logo from './logo.png';
-import './App.css';
-import axios from 'axios';
-import config from './config';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Redirect } from 'react-router'
+import Login from './components/login';
+import Main from './components/main';
+import Callback from './components/callback';
+
 
 class App extends Component {
 
-  constructor(){
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      response: ""
-    }
+      access_token: null                        
+    }    
   }
 
-  componentWillMount() {
-    console.log("env var", process.env.SERVER_HOST);
-    axios.get(config.server.host, { headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-    }})
-      .then((response) => {
-        console.log(response);
-        this.setState({response: response.data});
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  componentDidMount(){
+    this.setState({ access_token: localStorage.getItem('access_token') });
   }
-
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Spotify Playlist Masher</h1>
-        </header>
-        <p className="App-intro">
-          The response from the server: {this.state.response}
-        </p>
-      </div>
-    );
+    return (<Router>
+            <div>
+              <Route exact path="/" component={Login} />
+              <Route path="/callback" component={Callback} />
+              <Route path="/main" render={() => ( this.state.access_token ? <Main /> : <Redirect to="/"/>)} />
+            </div>
+          </Router>);
+
   }
 }
-
 export default App;

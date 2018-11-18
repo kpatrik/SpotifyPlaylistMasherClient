@@ -29,10 +29,13 @@ class Callback extends Component {
   }
 
   render(){
-    return this.state.loggedIn ? (<Redirect to="/main"/>
-  ) : (
-    <div> Loading </div>
-  )
+    return this.state.loggedIn 
+      ? (
+          <Redirect to="/main"/>
+        ) 
+      : (
+          <div> Loading </div>
+        )
   }
 }
 

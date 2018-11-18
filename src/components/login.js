@@ -12,7 +12,7 @@ class Login extends Component {
       response: "",
       stateKey: 'spotify_auth_state'
     }
-
+    
     this.login = this.login.bind(this);
     this.generateRandomString = this.generateRandomString.bind(this);
 

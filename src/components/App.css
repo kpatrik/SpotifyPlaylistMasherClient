@@ -129,18 +129,26 @@ html, body, #root, #root > div {
 
 .playlist {
   padding: 12px;
+  cursor: pointer;
 }
 
 .playlist:hover {
   background-color: #2b2222;
 }
 
-.add-btn {
-  color: #1db954;
+.playlist-btn {
   cursor: pointer;
   float: right;
   margin-left: 12px;
   font-size: 1.2em;
+}
+
+.add-btn {
+  color: #1db954;
+}
+
+.remove-btn {
+  color: #c0392b;
 }
 
 .playlist-adder-content {
@@ -196,6 +204,16 @@ html, body, #root, #root > div {
   font-size: 2em;
   cursor: pointer;
   align-items: center;
+}
+
+.added-playlist {
+  background-color: #1db954;
+  color: white;
+}
+
+.added-playlist:hover {
+  background-color: #27ae60;
+  color: #191414;
 }
 
 .loading-icon {

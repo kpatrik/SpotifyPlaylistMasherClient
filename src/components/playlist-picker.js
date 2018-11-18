@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import config from '../config';
+import Playlist from './playlist';
 
 class PlaylistPicker extends Component {
     constructor(props) {
         super(props);
         this.state = {
             playlists: [],
-            user_id: ''
+            userId: ''
         }
 
-        this.addPlaylist = this.addPlaylist.bind(this);
+        this.onIconClicked = this.onIconClicked.bind(this);
     }
 
     componentDidMount() {
@@ -30,32 +31,32 @@ class PlaylistPicker extends Component {
                 if (res.data.err !== undefined) {
                     // exception handilng (?)
                 } else {
-                    this.setState({ playlists: res.data.playlists });
-                    this.setState({ user_id: res.data.owner_id });
+                    let playlists = res.data.playlists.map((playlist) => {
+                        return {
+                            playlist: playlist,
+                            isAdded: false,
+                            key: playlist.id
+                        }
+                    })
+                    this.setState({ userId: res.data.owner_id });
+                    this.setState({ playlists: playlists });                    
                 }
             }
         }
         )
     }
 
-    addPlaylist(playlist, event) {
-        event.preventDefault();
-        console.log(playlist);
+    onIconClicked(playlist_item) {
+        console.log("onIconClicked called from + " + playlist_item.playlist.name);
     }
 
     render() {
-        const playlistsContent = this.state.playlists.map((playlist) => {
-            let playlistContent = playlist.owner.id === this.state.user_id
-                ? '' + playlist.name
-                : '' + playlist.name + '\t(by: ' + playlist.owner.display_name + ')';
-
-            return (
-                <div className="playlist">
-                    {playlistContent}
-                    <i onClick={(e) => this.addPlaylist(playlist, e)} className="fas fa-plus-circle add-btn"></i>
-                </div>)
+        const playlistsContent = this.state.playlists.map((playlist_item) => {
+            return <Playlist playlist_item={playlist_item}
+                onIconClicked={this.onIconClicked}
+                userId={this.state.userId} />
         });
-            
+
 
         return (<div className="playlist-picker-content">
             <div className="playlist-header">

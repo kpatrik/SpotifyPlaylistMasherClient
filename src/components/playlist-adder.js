@@ -8,14 +8,14 @@ class PlaylistAdder extends Component {
         super(props);
         this.state = {
             importedPlaylists: [],
-            inputPlaylistId: '',
-            inputIsValid: false,
             isLoading: false,
-            addPlaylist: props.addPlaylist
+            addPlaylist: props.addPlaylist,
+            inputString: ''
         }
 
-        this.onImportPlaylist = this.onImportPlaylist.bind(this);
+        this.importPlaylist = this.importPlaylist.bind(this);
         this.onUriChanged = this.onUriChanged.bind(this);
+        this.validateUri = this.validateUri.bind(this);
     }
 
     render() {
@@ -27,13 +27,14 @@ class PlaylistAdder extends Component {
         return (<div className="playlist-adder-content">
             <div className="playlist-header">Add playlists</div>
             <div className="playlist-adder">
-                <span className="playlist-link-input-title">Copy playlist link here</span>
+                <span className="playlist-link-input-title">Copy playlist URI or Drag'n'Drop playlist here</span>
                 <div className="playlist-link-input-box">
                     <input className="playlist-link-input" type="text" placeholder="Playlist link"
+                        value={this.state.inputString}
                         onChange={this.onUriChanged} />
                     {this.state.isLoading
                         ? (<i className="fas fa-spinner playlist-link-input-icon loading-icon"></i>)
-                        : (<i onClick={this.onImportPlaylist} className="fas fa-search-plus playlist-link-input-icon"></i>)}
+                        : (<i className="fas fa-search-plus playlist-link-input-icon"></i>)}
                 </div>
             </div>
             <div className="playlist-container">
@@ -43,50 +44,68 @@ class PlaylistAdder extends Component {
     }
 
     onUriChanged(e) {
-        this.setState({ isLoading: true });
+        e.preventDefault();
         let uri = e.target.value;
-        let inputParts = uri.split(':');
-        if (inputParts.length != 5) {
-            this.setState({ inputIsValid: false });
+        this.setState({
+            isLoading: true,
+            inputString: uri
+        });
+        let validationResult = this.validateUri(uri);
+        if (validationResult.isValid) {
+            this.importPlaylist(validationResult.playlistId);
+            this.setState({ inputString: '' });
         } else {
-            let id = inputParts[4];
-            this.setState({ inputIsValid: true });
-            this.setState({ inputPlaylistId: id });
+            this.setState({ isLoading: false });
         }
-        this.setState({ isLoading: false });
     }
 
-    onImportPlaylist(event) {
-        event.preventDefault();
-        console.log(this.state.inputPlaylistId);
-        if (this.state.inputIsValid) {
-            this.setState({ isLoading: true });
-            axios.get(config.server.host + '/findPlaylist', {
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Content-Type': 'application/json',
-                },
-                params: {
-                    playlistId: this.state.inputPlaylistId
-                }
-            }).then((res, err) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log(res);
-                    this.setState(prevState => ({
-                        importedPlaylists: [...prevState.importedPlaylists, {
-                            playlist: res.data.playlist,
-                            isAdded: true,
-                            key: res.data.playlist.id
-                        }]
-                    }));
-                    this.setState({ isLoading: false });
-                }
-            });
+    validateUri(uri) {
+        let regex1 = new RegExp(/spotify:user:\S*:playlist:\S*/);
+        let regex2 = new RegExp(/https:\/\/open.spotify.com\/user\/\S*\/\S*/);
+
+        if (regex1.test(uri)) {
+            let playlistId = uri.split(':')[4];
+            return {
+                playlistId: playlistId,
+                isValid: true
+            };
+        } else if (regex2.test(uri)) {
+            let playlistId = uri.split('.')[2].split('/')[4].split('?')[0];
+            return {
+                playlistId: playlistId,
+                isValid: true
+            };
         } else {
-            // let the user know that the link isnt valid
+            return {
+                isValid: false
+            };
         }
+    }
+
+    importPlaylist(playlistId) {
+        axios.get(config.server.host + '/findPlaylist', {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+            },
+            params: {
+                playlistId: playlistId
+            }
+        }).then((res, err) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(res);
+                this.setState(prevState => ({
+                    importedPlaylists: [...prevState.importedPlaylists, {
+                        playlist: res.data.playlist,
+                        isAdded: true,
+                        key: res.data.playlist.id
+                    }]
+                }));
+            }
+            this.setState({ isLoading: false });
+        });
     }
 
     onIconClicked(playlist_item) {

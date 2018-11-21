@@ -51,7 +51,7 @@ class Login extends Component {
     var state = this.generateRandomString(16);
 
     localStorage.setItem(this.state.stateKey, state);
-    var scope = 'user-read-private user-read-email';
+    var scope = 'user-read-private user-read-email playlist-modify-public';
 
     var url = 'https://accounts.spotify.com/authorize';
     url += '?response_type=token';

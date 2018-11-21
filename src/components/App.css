@@ -1,13 +1,13 @@
 html, body, #root, #root > div {
   height: 100%;
   font-family: Circular, Helvetica, Arial, sans-serif;
+  background-color: #191414;
 }
 
 
 
 .App {
   text-align: center;
-  background-color: #191414;
   color: white;
   display: flex;
   align-items: center;

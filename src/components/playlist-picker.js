@@ -3,12 +3,19 @@ import axios from 'axios';
 import config from '../config';
 import Playlist from './playlist';
 
+/**
+ * This class is responsible for displaying the logged in
+ * user's public playlists so the user can quickly choose
+ * from them when creating a playlist
+ */
+
 class PlaylistPicker extends Component {
     constructor(props) {
         super(props);
         this.state = {
             playlists: [],
-            userId: ''
+            userId: '',
+            addPlaylist: props.addPlaylist
         }
 
         this.onIconClicked = this.onIconClicked.bind(this);
@@ -27,9 +34,9 @@ class PlaylistPicker extends Component {
             if (err) {
                 console.log(err);
             } else {
-                console.log(res);
                 if (res.data.err !== undefined) {
-                    // exception handilng (?)
+                    // exception handling (?)
+                    console.log(res.data.err);
                 } else {
                     let playlists = res.data.playlists.map((playlist) => {
                         return {
@@ -46,15 +53,16 @@ class PlaylistPicker extends Component {
         )
     }
 
-    onIconClicked(playlist_item) {
-        console.log("onIconClicked called from + " + playlist_item.playlist.name);
+    onIconClicked(playlist_item, newValue) {
+        this.state.addPlaylist(playlist_item, newValue);
     }
 
     render() {
         const playlistsContent = this.state.playlists.map((playlist_item) => {
             return <Playlist playlist_item={playlist_item}
                 onIconClicked={this.onIconClicked}
-                userId={this.state.userId} />
+                userId={this.state.userId}
+                key={playlist_item.playlist.id} />
         });
 
 

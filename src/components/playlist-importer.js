@@ -3,7 +3,12 @@ import axios from 'axios';
 import config from '../config';
 import Playlist from './playlist';
 
-class PlaylistAdder extends Component {
+/**
+ * This class enables the users to import additional
+ * playlists based on a copy-pasted URI or just drag'n'drop
+ * them from Spotify
+ */
+class PlaylistImporter extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,12 +21,14 @@ class PlaylistAdder extends Component {
         this.importPlaylist = this.importPlaylist.bind(this);
         this.onUriChanged = this.onUriChanged.bind(this);
         this.validateUri = this.validateUri.bind(this);
+        this.onIconClicked = this.onIconClicked.bind(this);
     }
 
     render() {
         const playlistsContent = this.state.importedPlaylists.map((playlist_item) => {
             return <Playlist playlist_item={playlist_item}
-                onIconClicked={this.onIconClicked} />
+                onIconClicked={this.onIconClicked}
+                key={playlist_item.playlist.id} />
         });
 
         return (<div className="playlist-adder-content">
@@ -108,9 +115,9 @@ class PlaylistAdder extends Component {
         });
     }
 
-    onIconClicked(playlist_item) {
-        console.log("onIconClicked called from + " + playlist_item.playlist.name);
+    onIconClicked(playlist_item, newValue) {
+        this.state.addPlaylist(playlist_item, newValue);
     }
 }
 
-export default PlaylistAdder;
+export default PlaylistImporter;

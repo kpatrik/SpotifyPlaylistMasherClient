@@ -12,12 +12,18 @@ class Playlist extends Component {
         }
 
         this.onIconClicked = this.onIconClicked.bind(this);
+
+        // instant add when importing a playlist!
+        if (props.playlist_item.isAdded) {
+            props.onIconClicked(props.playlist_item, true);
+        }
     }
 
     onIconClicked(playlist_item, event) {
         event.preventDefault();
-        this.setState({ isAdded: !this.state.isAdded });
-        this.state.onIconClicked(playlist_item);
+        let isAdded = !this.state.isAdded;
+        this.setState({ isAdded: isAdded });
+        this.state.onIconClicked(playlist_item, isAdded);
     }
 
     render() {

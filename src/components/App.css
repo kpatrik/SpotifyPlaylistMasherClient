@@ -242,6 +242,33 @@ html, body, #root, #root > div {
   margin-top: 15px;
 }
 
+.track-li {
+  display: flex;
+  height: 150px;
+  margin-bottom: 15px;
+  position: relative;
+  border: 1px solid #1db954;
+  border-radius: 2px;
+}
+
+.track-li-name {
+  color: #1db954;
+  font-size: 32px;
+  font-family: 'Signika', sans-serif; 
+  padding: 10px;
+}
+
+.track-li-freq {
+  color: #fff;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.track-li-image {
+  height: 100%;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

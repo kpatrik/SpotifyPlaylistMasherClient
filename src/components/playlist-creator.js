@@ -9,7 +9,8 @@ class PlaylistCreator extends Component {
         super(props);
         this.state = {
             name: '',
-            numberOfTracks: 10
+            numberOfTracks: 10,
+            tracks: []
         }
 
         this.onCreatePlaylist = this.onCreatePlaylist.bind(this);
@@ -18,6 +19,15 @@ class PlaylistCreator extends Component {
     render() {
         console.log("PlaylistMasher render() called. Playlists below: ", this.state);
         console.log(this.props.playlists);
+
+        const tracksToRender = this.state.tracks.map((item) => (
+            <div className="track-li">
+                <img src={item.track.album.images[0].url} className="track-li-image"/>
+                <div className="track-li-name">{item.track.artists[0].name + ' - ' + item.track.name}</div>
+                <div className="track-li-freq">Frequency: {item.count} </div>
+            </div>
+            ))
+
         return (<div className="playlist-creator-content">
             <div className="playlist-header">Playlist Creator</div>
             <div className="playlist-creator-input">
@@ -32,7 +42,7 @@ class PlaylistCreator extends Component {
                 <span className="btn mash-btn" onClick={this.onCreatePlaylist}>MASH</span>
             </div>
             <div className="playlist-creator-added-playlists">
-
+                { tracksToRender }
             </div>
         </div>);
     }
@@ -50,7 +60,7 @@ class PlaylistCreator extends Component {
         {
             playlistIds: this.props.playlists.map(item => item.key),
             name: this.state.name,
-            numbnerOfTracks: this.state.numberOfTracks
+            numberOfTracks: this.state.numberOfTracks
         },
         {
             headers: {
@@ -60,6 +70,9 @@ class PlaylistCreator extends Component {
             params: {
                 access_token: localStorage.getItem('access_token')
             }
+        }).then((res) => {
+            console.log(res.data.tracks);
+            this.setState({ tracks: res.data.tracks });
         })
     }
 }

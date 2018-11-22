@@ -36,6 +36,7 @@ class Main extends Component {
   }
 
   render() {
+    console.log('plazlists', this.state.playlists);
     console.log("Main render() called. Playlists below: ");
     console.log(this.state.playlists.map((playlist_item) => playlist_item.playlist.name));
     return <div className="App">

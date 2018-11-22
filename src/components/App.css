@@ -219,6 +219,29 @@ html, body, #root, #root > div {
   color: #c0392b;
 }
 
+.playlist-creator-content {
+  position: absolute;
+  right: 0;
+  bottom: 50%;
+  left: 50%;
+  top: 0;
+  margin: 10px;
+  z-index: 1;
+  background-color: #191414;
+}
+
+.playlist-creator-name-input {
+  margin-right: 15px;
+}
+
+.mash-btn{
+  width: 100px;
+}
+
+.playlist-creator-input {
+  margin-top: 15px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

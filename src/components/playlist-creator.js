@@ -24,14 +24,15 @@ class PlaylistCreator extends Component {
     render() {
         const tracksToRender = this.state.tracks.map((item) => (
             <Track track={item.track} count={item.count} key={item.track.id}></Track>
-            ))
+        ))
 
         return (<div className="playlist-creator-content">
             <div className="playlist-header">Playlist Creator</div>
             <div className="playlist-creator-input">
                 <div className="playlist-creator-input-field playlist-creator-name-input">
                     <label htmlFor="playlist-name">Playlist name: </label>
-                    <input id="playlist-name" name="name" type="text" onChange={this.handleInputChange} defaultValue={this.state.name}></input>
+                    <input id="playlist-name" placeholder="Type playlist name..." name="name"
+                        type="text" onChange={this.handleInputChange} defaultValue={this.state.name}></input>
                 </div>
                 <div className="playlist-creator-input-field playlist-creator-count-input">
                     <label htmlFor="track-count">Number of tracks: </label>
@@ -40,7 +41,7 @@ class PlaylistCreator extends Component {
                 <div className="btn mash-btn" onClick={this.onCreatePlaylist}>MASH</div>
             </div>
             <div className="playlist-creator-added-tracks">
-                { tracksToRender }
+                {tracksToRender}
             </div>
         </div>);
     }
@@ -54,22 +55,22 @@ class PlaylistCreator extends Component {
 
     onCreatePlaylist = () => {
         axios.post(config.server.host + '/createplaylist',
-        {
-            playlistIds: this.props.playlists.map(item => item.key),
-            name: this.state.name,
-            numberOfTracks: this.state.numberOfTracks
-        },
-        {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json',
+            {
+                playlistIds: this.props.playlists.map(item => item.key),
+                name: this.state.name,
+                numberOfTracks: this.state.numberOfTracks
             },
-            params: {
-                access_token: localStorage.getItem('access_token')
-            }
-        }).then((res) => {
-            this.setState({ tracks: res.data.tracks });
-        })
+            {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json',
+                },
+                params: {
+                    access_token: localStorage.getItem('access_token')
+                }
+            }).then((res) => {
+                this.setState({ tracks: res.data.tracks });
+            })
     }
 }
 

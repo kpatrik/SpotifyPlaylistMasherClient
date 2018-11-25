@@ -31,9 +31,9 @@ class PlaylistImporter extends Component {
                 key={playlist_item.playlist.id} />
         });
 
-        return (<div className="playlist-adder-content">
+        return (<div className="playlist-importer-content">
             <div className="playlist-header">Add playlists</div>
-            <div className="playlist-adder">
+            <div className="playlist-importer">
                 <span className="playlist-link-input-title">Copy playlist URI or Drag'n'Drop playlist here</span>
                 <div className="playlist-link-input-box">
                     <input className="playlist-link-input" type="text" placeholder="Playlist link"

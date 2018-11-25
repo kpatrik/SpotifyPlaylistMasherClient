@@ -151,7 +151,7 @@ html, body, #root, #root > div {
   color: #c0392b;
 }
 
-.playlist-adder-content {
+.playlist-importer-content {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -162,23 +162,24 @@ html, body, #root, #root > div {
   background-color: #191414;
 }
 
-.playlist-adder {
-  width: 100%;
+.playlist-importer {
   margin: 10px;
+  display: flex;
 }
 
 .playlist-link-input-title {
-  padding: 10px 10px 10px 0;
+  padding: 10px;
   line-height: 100%;
+  width: calc(50% - 25px);
 }
 
 .playlist-link-input-box {
   border-radius: 50px;
   display: inline-block;
   background-color: white;
-  height: 30px;
+  height: 20px;
   padding: 10px;
-  width: 50%;
+  width: calc(50% - 25px);
 }
 
 .playlist-link-input {
@@ -194,12 +195,11 @@ html, body, #root, #root > div {
 
 .playlist-link-input-icon {
   justify-content: center;
-  align-items: center;
   float: right;
   display: flex;
   border-radius: 50%;
   width: 40px;
-  height: 100%px;
+  height: 100%;
   color: #1db954;
   font-size: 2em;
   align-items: center;
@@ -222,7 +222,7 @@ html, body, #root, #root > div {
 .playlist-creator-content {
   position: absolute;
   right: 0;
-  bottom: 50%;
+  bottom: 0;
   left: 50%;
   top: 0;
   margin: 10px;
@@ -230,8 +230,28 @@ html, body, #root, #root > div {
   background-color: #191414;
 }
 
+.playlist-creator-input-field {
+  background-color: #fff;
+  height: 20px;
+  border-radius: 50px;
+  color: #000;
+  line-height: 20px;
+  padding: 10px;
+}
+
+.playlist-creator-input-field input {
+  border: none;
+  background: none;
+  outline: none;
+}
+
 .playlist-creator-name-input {
   margin-right: 15px;
+  width: calc(70% - 15px);
+}
+
+.playlist-creator-count-input {
+  width: calc(30% - 15px);
 }
 
 .mash-btn{
@@ -240,6 +260,7 @@ html, body, #root, #root > div {
 
 .playlist-creator-input {
   margin-top: 15px;
+  height: calc(15% - 15px);
 }
 
 .track-li {
@@ -249,12 +270,13 @@ html, body, #root, #root > div {
   position: relative;
   border: 1px solid #1db954;
   border-radius: 2px;
+  text-align: left;
 }
 
 .track-li-name {
+  font-size: 1.5em;
   color: #1db954;
-  font-size: 32px;
-  font-family: 'Signika', sans-serif; 
+  font-family: 'Signika', sans-serif;
   padding: 10px;
 }
 
@@ -263,10 +285,17 @@ html, body, #root, #root > div {
   position: absolute;
   bottom: 10px;
   right: 10px;
+  font-size: 1em;
 }
 
 .track-li-image {
   height: 100%;
+}
+
+.playlist-creator-added-tracks {
+  height: 75%;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 @keyframes App-logo-spin {

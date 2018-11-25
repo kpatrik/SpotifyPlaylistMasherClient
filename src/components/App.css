@@ -298,6 +298,34 @@ html, body, #root, #root > div {
   overflow-y: scroll;
 }
 
+@media screen and (max-width: 600px) {
+  
+  body { 
+    font-size: 62.5%; 
+  }
+  
+  .App {
+    display: initial;
+  }
+
+  .playlist-creator-input,
+  .playlist-importer {
+    display: initial;
+  }
+
+  .playlist-creator-input > *,
+  .playlist-importer > * {
+    display: block;
+    margin: auto;
+  }
+
+  .playlist-importer-content,
+  .playlist-picker-content,
+  .playlist-creator-content {
+    position: initial;
+  }
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

@@ -29,15 +29,15 @@ class PlaylistCreator extends Component {
         return (<div className="playlist-creator-content">
             <div className="playlist-header">Playlist Creator</div>
             <div className="playlist-creator-input">
-                <span className="playlist-creator-input-field playlist-creator-name-input">
+                <div className="playlist-creator-input-field playlist-creator-name-input">
                     <label htmlFor="playlist-name">Playlist name: </label>
                     <input id="playlist-name" name="name" type="text" onChange={this.handleInputChange} defaultValue={this.state.name}></input>
-                </span>
-                <span className="playlist-creator-input-field playlist-creator-count-input">
-                    <label htmlFor="track-count">Number of track: </label>
+                </div>
+                <div className="playlist-creator-input-field playlist-creator-count-input">
+                    <label htmlFor="track-count">Number of tracks: </label>
                     <input id="track-count" name="numberOfTracks" type="number" step="10" min="10" onChange={this.handleInputChange} defaultValue={this.state.numberOfTracks}></input>
-                </span>
-                <span className="btn mash-btn" onClick={this.onCreatePlaylist}>MASH</span>
+                </div>
+                <div className="btn mash-btn" onClick={this.onCreatePlaylist}>MASH</div>
             </div>
             <div className="playlist-creator-added-tracks">
                 { tracksToRender }

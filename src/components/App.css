@@ -113,7 +113,7 @@ html, body, #root, #root > div {
   line-height: 1.5em;
   font-size: 1.1em;
   display: block;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: calc(100% - 4em - 2px); /* 2m line height, 2px border*/
 }
 
@@ -232,11 +232,11 @@ html, body, #root, #root > div {
 
 .playlist-creator-input-field {
   background-color: #fff;
-  height: 20px;
   border-radius: 50px;
   color: #000;
   line-height: 20px;
   padding: 10px;
+  display: inline;
 }
 
 .playlist-creator-input-field input {
@@ -256,11 +256,13 @@ html, body, #root, #root > div {
 
 .mash-btn{
   width: 100px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 30px;
 }
 
 .playlist-creator-input {
   margin-top: 15px;
-  height: calc(15% - 15px);
 }
 
 .track-li {
@@ -295,10 +297,37 @@ html, body, #root, #root > div {
 .playlist-creator-added-tracks {
   height: 75%;
   overflow: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1270px) {
+
+  .playlist-creator-name-input > * {
+    display: inline-block;
+    height: auto;
+    position: relative;
+    text-align: left;
+  }
+
+  .playlist-creator-count-input > * {
+    height: auto;
+    display: inline-block;
+    text-align: left;
+  }
+
+  .playlist-creator-input-field > * {
+    display: inline-block;
+    height: 10px;
+  }
+
+  .playlist-creator-input > * {
+    display: inline-block;
+    margin: 15px;
+    width: calc(100% - 30px);
+  }
+}
+
+@media screen and (max-width: 800px) {
   
   body { 
     font-size: 62.5%; 
@@ -313,7 +342,6 @@ html, body, #root, #root > div {
     display: initial;
   }
 
-  .playlist-creator-input > *,
   .playlist-importer > * {
     display: block;
     margin: auto;
